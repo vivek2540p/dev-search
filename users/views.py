@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import conf
 from django.db.models import Q
-from .models import Profile, Message
+from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from .utils import searchProfiles, paginateProfiles
 
@@ -60,7 +60,7 @@ def registerUser(request):
             return redirect('edit-account')
 
         else:
-            messages.success(
+            messages.error(
                 request, 'An error has occurred during registration')
 
     context = {'page': page, 'form': form}
@@ -69,8 +69,9 @@ def registerUser(request):
 
 def profiles(request):
     profiles, search_query = searchProfiles(request)
-
     custom_range, profiles = paginateProfiles(request, profiles, 3)
+    if not request.user.is_anonymous:
+        profiles=filter(lambda x:x.id!=request.user.profile.id,profiles)
     context = {'profiles': profiles, 'search_query': search_query,
                'custom_range': custom_range}
     return render(request, 'users/profiles.html', context)

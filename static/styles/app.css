@@ -7,6 +7,8 @@
 }
 
 .card {
+  /* margin-top: 200px; */
+  /* margin-bottom: 200px; */
   border: 2px solid var(--color-light);
 }
 
@@ -643,8 +645,10 @@ img {
   position: relative;
   z-index: 1;
   background: transparent;
-  height: 99vh;
+  /* height: 99vh; */
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
   justify-content: center;
   align-items: center;
 }

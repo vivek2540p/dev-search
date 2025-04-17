@@ -39,3 +39,22 @@ for (let i = 0; tags.length > i; i++) {
 
     })
 }
+
+
+
+function toggleChat() {
+    const chat = document.getElementById("chatContainer");
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const messages = document.getElementById("chatMessages");
+    if (input.value.trim() !== "") {
+      const userMsg = document.createElement("p");
+      userMsg.innerHTML = "<strong>You:</strong> " + input.value;
+      messages.appendChild(userMsg);
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  }

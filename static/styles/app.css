@@ -421,6 +421,82 @@ img {
     order: 2;
   }
 }
+.chatbot {
+  position: fixed;
+  bottom: 60px;
+  right: 60px;
+  width: 60px;
+  height: 60px;
+  color: red;
+  background-color: lightblue;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* background-image: url('chat-icon.png'); Replace with your icon path */
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+.chat-container {
+  position: fixed;
+  bottom: 130px;
+  right: 60px;
+  width: 500px;
+  height: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  display: none;
+  flex-direction: column;
+  z-index: 998;
+  overflow: hidden;
+}
+
+/* Chat Header */
+.chat-header {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  height: 360px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+/* Input Area */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+.chat-input input:focus {
+  border: none;
+  outline: none;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.chat-input button {
+  border: none;
+  background: #007bff;
+  color: white;
+  padding: 15px;
+  cursor: pointer;
+}
 
 .singleProject__toolStack {
   margin-top: 2rem;

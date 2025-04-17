@@ -420,9 +420,18 @@ img {
   .singleProject .column--2of3 {
     order: 2;
   }
+  
 }
+/* @media screen and (min-width: 768px) {
+  .chatbot{
+    display: none;
+  } 
+} */
 .chatbot {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 60px;
   right: 60px;
   width: 60px;
@@ -459,14 +468,37 @@ img {
   background-color: #007bff;
   color: white;
   padding: 12px;
+  position: relative;
   font-weight: bold;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
+.bot-message{
+  background-color: #9acbff;
+  width: fit-content;
+  padding: 8px;
+  color: black;
+  border-radius: 10px;
+  margin-bottom: 5px; 
+}
+.bot-img{
+  width: 45px;
+  height: 45px;
+}
+.human-message{
+  background-color: #9acbff;
+  align-self: flex-end; /* Pushes message to the right in flex layout */
+  width: fit-content;
+  padding: 8px;
+  color: black;
+  border-radius: 10px;
+  margin-bottom: 5px; 
+}
 
 /* Chat Messages Area */
 .chat-messages {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   height: 360px;
   overflow-y: auto;

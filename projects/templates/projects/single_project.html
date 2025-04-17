@@ -1,17 +1,17 @@
 {% extends 'main.html'  %}
 {% block content  %}
-
+{% load static %}
 
 <main class="singleProject my-md">
     <div class="container">
       <div class="chatbot" onclick="toggleChat()">
-        <!-- Chatbot -->
+        <img src="{% static 'images/bot.png' %}" class="bot-img" alt="DevSearch Logo" />
       </div>
 
       <div class="chat-container" id="chatContainer">
         <div class="chat-header">Chatbot</div>
         <div class="chat-messages" id="chatMessages">
-          <p><strong>Bot:</strong> Hi! How can I help you?</p>
+          <p class="bot-message"> Hi! How can I help you?</p>
         </div>
         <div class="chat-input">
           <input type="text" id="userInput" placeholder="Type your message..." />

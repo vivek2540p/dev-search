@@ -50,9 +50,11 @@ function toggleChat() {
   function sendMessage() {
     const input = document.getElementById("userInput");
     const messages = document.getElementById("chatMessages");
+
     if (input.value.trim() !== "") {
       const userMsg = document.createElement("p");
-      userMsg.innerHTML = "<strong>You:</strong> " + input.value;
+      userMsg.innerHTML =  input.value;
+      userMsg.className = Math.random()<0.5?"bot-message":"human-message"
       messages.appendChild(userMsg);
       input.value = "";
       messages.scrollTop = messages.scrollHeight;

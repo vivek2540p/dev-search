@@ -50,13 +50,48 @@ function toggleChat() {
   function sendMessage() {
     const input = document.getElementById("userInput");
     const messages = document.getElementById("chatMessages");
-
+  
     if (input.value.trim() !== "") {
+      const userText = input.value;
+      const projectId = document.getElementById("projectId").value;
       const userMsg = document.createElement("p");
-      userMsg.innerHTML =  input.value;
-      userMsg.className = Math.random()<0.5?"bot-message":"human-message"
+      userMsg.className = "human-message";
+      userMsg.innerHTML = userText;
       messages.appendChild(userMsg);
+
+      const loadingMsg = document.createElement("p");
+    loadingMsg.className = "loading-message";
+    loadingMsg.innerHTML = "Loading...";
+    messages.appendChild(loadingMsg);
+  
+      fetch("http://127.0.0.1:8000/projects/chatbot/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        //   "X-CSRFToken": getCookie("csrftoken")  // Handle CSRF for Django
+        },
+        body: JSON.stringify({ message: userText, project: projectId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        messages.removeChild(loadingMsg);
+        const botMsg = document.createElement("p");
+        botMsg.className = "bot-message";
+        botMsg.innerHTML = data.response;
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+      }).catch(error => {
+        // Handle any errors during the fetch
+        messages.removeChild(loadingMsg);
+        const errorMsg = document.createElement("p");
+        errorMsg.className = "error-message";
+        errorMsg.innerHTML = "Something went wrong, please try again!";
+        messages.appendChild(errorMsg);
+        sendButton.disabled = false;
+      });
+  
+  
       input.value = "";
-      messages.scrollTop = messages.scrollHeight;
     }
   }
+  

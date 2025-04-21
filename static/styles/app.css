@@ -34,6 +34,22 @@ img {
   background-color: var(--color-sub);
   padding: 1.5rem 0;
 }
+.loading-message {
+  color: #007bff;  /* Blue color for loading text */
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* Error message style */
+.error-message {
+  color: #ff0000;  /* Red color for error text */
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+}
 
 .header > .container {
   display: flex;

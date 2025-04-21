@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Project, Tag
 from .forms import ProjectForm,ReviewForm
-from .utils import searchProjects,paginateProject
+from .utils import searchProjects,paginateProject,chatbot
 
 def projects(request):
     projects,search_query=searchProjects(request)
@@ -71,13 +71,14 @@ def updateProject(request,pk):
     form= ProjectForm(instance=projectObj)
     
     if request.method=='POST':
-        newtags = request.POST.get('newtags').replace(',',  " ").split()
+        # newtags = request.POST.get('newtags').replace(',',  " ").split()
         form=ProjectForm(request.POST,request.FILES,instance=projectObj)
         if form.is_valid():
             form.save()
-            for tag in newtags:
-                tag, created = Tag.objects.get_or_create(name=tag)
-                projectObj.tags.add(tag)
+            # for tag in newtags:
+            #     tag ,created= Tag.objects.get_or_create(name=tag)
+            #     projectObj.tags.add(tag)
+            projectObj.save()
             return redirect('account')
     context={'form':form}
     return render(request,'projects/project_form.html',context)
@@ -88,3 +89,27 @@ def deleteProject(request,pk):
     projectObj=Project.objects.get(id=pk)
     projectObj.delete()
     return redirect('account')
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def chatbot_response(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_input = data.get("message", "")
+        pk = data.get("project", "")
+        project =Project.objects.get(id=pk)
+        # project.tags.se
+        print(project.description,project.title)
+        print(project.tags.all())
+        context = """ 
+        Project Name : """ +  project.title +"""
+        Project Description : """ +  project.description +"""
+        Languages and FrameWork  : """ +  ", ".join([tag.name for tag in project.tags.all()]) +"""
+        """
+        # Placeholder bot logic — replace with your actual bot logic
+        bot_reply = chatbot(query=user_input,context=context)
+
+        return JsonResponse({"response": bot_reply})

@@ -1,6 +1,8 @@
 from .models import Project,Tag
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from langchain_google_genai import ChatGoogleGenerativeAI
+from django.conf import settings
 
 def searchProjects(request):
     search_query=''
@@ -30,4 +32,23 @@ def paginateProject(request,projects,results):
         rightIndex=paginator.num_pages+1
     custome_range=range(leftIndex,rightIndex)
     return projects,custome_range
+
+def chatbot(query,context):
+    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash",google_api_key=settings.GEMINI_API_KEY)
+    prompt = """ You are a helpful and knowledgeable project assistant.
+    Below is the context of a software project followed by a user's question.Answer the following question based only on provided context.Use the context to generate a helpful, accurate, and concise answer. Keep the response short and relevant .For general questions or greetings, respond concisely.
+    <context>
+    """+context+"""
+    </context>
+    User Question:
+    """+query+"""
+
+    Instructions:
+    - Use only the information provided in the context.
+    - If something is unclear or missing, politely mention that to the user.
+    - Be clear, friendly, and professional in tone.
+    - Keep the response short and relevant.
+    """
+    response = llm.invoke(prompt)
+    return response.content
     

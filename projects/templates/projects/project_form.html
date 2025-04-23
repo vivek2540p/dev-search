@@ -12,12 +12,14 @@
 
             <form class="form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-
+                {{type}}
                 {% for field in form %}
                 <!-- Input:Text -->
                 <div class="form__field">
-                    <label for="formInput#text">{{field.label}}</label>
-                    {{field}}
+                    {% if field.label != 'Tags' or type == 'update' %}
+                        <label for="formInput#text">{{field.label}}</label>
+                        {{field}}
+                    {% endif %}
                 </div>
                 {% endfor %}
 
@@ -28,10 +30,10 @@
                     {% endfor %}
                 </div>
 
-                <!-- <div class="form__field">
+                <div class="form__field">
                     <label for="formInput#text">Tags</label>
                     <textarea class="input" name="newtags" placeholder="Add tags here..."></textarea>
-                </div> -->
+                </div>
                 <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
             </form>
         </div>

@@ -36,7 +36,7 @@ def paginateProject(request,projects,results):
 def chatbot(query,context):
     llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash",google_api_key=settings.GEMINI_API_KEY)
     prompt = """ You are a helpful and knowledgeable project assistant.
-    Below is the context of a software project followed by a user's question.Answer the following question based only on provided context.Use the context to generate a helpful, accurate, and concise answer. Keep the response short and relevant .For general questions or greetings, respond concisely.
+    Below is the context of a software project followed by a user's question.Answer the following question based only on provided context.The agent can also respond to project-related queries using its built-in knowledge base.Use the context to generate a helpful, accurate, and concise answer. Keep the response short and relevant .For general questions or greetings, respond concisely.
     <context>
     """+context+"""
     </context>

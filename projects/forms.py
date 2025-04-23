@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Project,Review
+from .models import Project,Review, Tag
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -12,9 +12,14 @@ class ProjectForm(ModelForm):
         
     def __init__(self,*args,**kwargs):
         super(ProjectForm,self).__init__(*args,**kwargs)
+        if self.instance and self.instance.pk:
+            # Editing existing project — show only selected tags
+            self.fields['tags'].queryset = self.instance.tags.all()
+        else:
+            # Adding new project — show all available tags
+            self.fields['tags'].queryset = Tag.objects.all()
         
         # self.fields['title'].widget.attrs.update({'class':'input', 'placeholder':'Project Title'})
-        print("12345")
         for k,v in self.fields.items():
             v.widget.attrs.update({'class':'input'})
             

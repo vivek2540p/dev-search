@@ -102,8 +102,6 @@ def chatbot_response(request):
         pk = data.get("project", "")
         project =Project.objects.get(id=pk)
         # project.tags.se
-        print(project.description,project.title)
-        print(project.tags.all())
         context = """ 
         Project Name : """ +  project.title +"""
         Project Description : """ +  project.description +"""
